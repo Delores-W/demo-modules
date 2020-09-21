@@ -1,0 +1,36 @@
+2020-08-25 00:06:39.709  INFO demo.LogTest:15 - Cool!!! This is a info logs message.
+2020-08-25 00:06:39.711  WARN demo.LogTest:17 - Cool!!! This is a warning logs message.
+2020-08-25 00:06:39.711 ERROR demo.LogTest:19 - Cool!!! This is a error logs message.
+2020-08-25 00:06:39.712 ERROR demo.LogTest:21 - Oops error!!!
+java.lang.NullPointerException: NullError
+	at demo.LogTest.main(LogTest.java:21)
+2020-08-25 00:14:47.168  INFO demo.LogTest:15 - Cool!!! This is a info logs message.
+2020-08-25 00:14:47.170  WARN demo.LogTest:17 - Cool!!! This is a warning logs message.
+2020-08-25 00:14:47.170 ERROR demo.LogTest:19 - Cool!!! This is a error logs message.
+2020-08-25 00:14:47.170 ERROR demo.LogTest:21 - Oops error!!!
+java.lang.NullPointerException: NullError
+	at demo.LogTest.main(LogTest.java:21)
+2020-08-25 00:16:10.572  INFO demo.LogTest:15 - Cool!!! This is a info logs message.
+2020-08-25 00:16:10.573  WARN demo.LogTest:17 - Cool!!! This is a warning logs message.
+2020-08-25 00:16:10.573 ERROR demo.LogTest:19 - Cool!!! This is a error logs message.
+2020-08-25 00:16:10.574 ERROR demo.LogTest:21 - Oops error!!!
+java.lang.NullPointerException: NullError
+	at demo.LogTest.main(LogTest.java:21)
+2020-08-25 00:22:14.986  INFO demo.LogTest:15 - Cool!!! This is a info logs message.
+2020-08-25 00:22:14.987  WARN demo.LogTest:17 - Cool!!! This is a warning logs message.
+2020-08-25 00:22:14.987 ERROR demo.LogTest:19 - Cool!!! This is a error logs message.
+2020-08-25 00:22:14.988 ERROR demo.LogTest:21 - Oops error!!!
+java.lang.NullPointerException: NullError
+	at demo.LogTest.main(LogTest.java:21)
+2020-08-25 00:23:25.529  INFO demo.LogTest:15 - Cool!!! This is a info logs message.
+2020-08-25 00:23:25.531  WARN demo.LogTest:17 - Cool!!! This is a warning logs message.
+2020-08-25 00:23:25.531 ERROR demo.LogTest:19 - Cool!!! This is a error logs message.
+2020-08-25 00:23:25.531 ERROR demo.LogTest:21 - Oops error!!!
+java.lang.NullPointerException: NullError
+	at demo.LogTest.main(LogTest.java:21)
+2020-08-25 00:23:25.533  INFO demo.LogTest:25 - Cool!!! This is a info logs message.
+2020-08-25 00:23:25.533  WARN demo.LogTest:27 - Cool!!! This is a warning logs message.
+2020-08-25 00:23:25.533 ERROR demo.LogTest:29 - Cool!!! This is a error logs message.
+2020-08-25 00:23:25.533 ERROR demo.LogTest:31 - Oops error again!!!
+java.lang.NullPointerException: NullErrorAgain
+	at demo.LogTest.main(LogTest.java:31)
