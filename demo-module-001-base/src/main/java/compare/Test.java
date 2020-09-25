@@ -31,14 +31,15 @@ public class Test {
         System.out.println("********************************");
 
         BinaryTree<Person> bt = new BinaryTree<>();
-        bt.add(new Person("D", 20));
-        bt.add(new Person("C", 10));
-        bt.add(new Person("B", 5));
-        bt.add(new Person("A", 3));
-        bt.add(new Person("E", 30));
-        bt.add(new Person("F", 30));
-        bt.add(new Person("G", 40));
-        bt.add(new Person("H", 70));
+        bt.add(new Person("80", 80));
+//        bt.add(new Person("50", 50));
+        bt.add(new Person("90", 90));
+//        bt.add(new Person("60", 60));
+//        bt.add(new Person("30", 30));
+//        bt.add(new Person("55", 55));
+        bt.add(new Person("85", 85));
+        bt.add(new Person("95", 95));
+
 
         List<Person> list = bt.toList();
 
@@ -52,6 +53,17 @@ public class Test {
         // Person{name='E', age=30}
         // Person{name='G', age=40}
         // Person{name='H', age=70}
+        System.out.println("-----------------------------------");
+//        bt.remove(new Person("90", 90));
+//        bt.remove(new Person("95", 95));
+//        bt.remove(new Person("85", 85));
+//        bt.remove(new Person("30", 30));
+//        bt.remove(new Person("60", 60));
+        bt.remove(new Person("80", 80));
+        List<Person> list2 = bt.toList();
+        if (list2 != null)
+        list2.forEach(System.out::println);
+
 
     }
 }
@@ -101,6 +113,29 @@ class BinaryTree<T extends Comparable<T>> {
             }
             return list;
         }
+
+        /**
+         * @param data data
+         * @return boolean
+         */
+        public Node getNode(T data) {
+            if (data.compareTo(this.data) == 0) {
+                return this;
+            } else if (data.compareTo(this.data) < 0) {
+                if (this.left != null) {
+                    return this.left.getNode(data);
+                } else {
+                    return null;
+                }
+            } else {
+                if (this.right != null) {
+                    return this.right.getNode(data);
+                } else {
+                    return null;
+                }
+            }
+        }
+
     }
 
     // 以下为二叉树功能实现
@@ -132,7 +167,106 @@ class BinaryTree<T extends Comparable<T>> {
             return this.root.toList();
         }
     }
+
+    public boolean contains(T data) {
+        if (this.count == 0) return false;
+        return this.root.getNode(data) != null;
+    }
+
+    public void remove(T data) {
+        Node removeNode = this.root.getNode(data);
+
+        if (removeNode != null && removeNode == this.root) { // 非空根节点
+            if (removeNode.left == null && removeNode.right == null) { // 根节点没有子节点
+                this.root = null;
+            } else if (removeNode.left != null && removeNode.right == null) { // 只有左节点
+                removeNode.left.parent = null;
+                this.root = removeNode.left;
+            } else if (removeNode.left == null) { // 只有右节点
+                removeNode.right.parent = null;
+                this.root = removeNode.right;
+            } else {
+                Node moveNode = removeNode.right;
+                if (moveNode.left == null) { // 右子节点没有更小的子节点，右子节点为要移动的节点
+                    moveNode.parent = null;
+                    this.root = moveNode;
+                } else {
+                    while (moveNode.left != null) {
+                        moveNode = moveNode.left; // 一直向左找到最左边的节点
+                    }
+                    moveNode.parent.left = null;
+                    moveNode.parent = null;
+                    moveNode.left = removeNode.left; // 为移动的节点建立新的连接
+                    moveNode.right = removeNode.right;
+                    removeNode.left.parent = moveNode;
+                    removeNode.right.parent = moveNode;
+                    this.root = moveNode;
+                }
+            }
+            this.count--;
+        } else if (removeNode != null && removeNode.parent.left == removeNode) { // 非空 非根 左节点
+            if (removeNode.left == null && removeNode.right == null) { // 没有任何子节点 为叶子节点
+                removeNode.parent.left = null; // 更新父节点的引用
+            } else if (removeNode.left != null && removeNode.right == null) { // 只有左节点
+                removeNode.parent.left = removeNode.left; // 更新父节点和左子节点的引用
+                removeNode.left.parent = removeNode.parent;
+            } else if (removeNode.left == null && removeNode.right != null) { // 只有右节点
+                removeNode.parent.left = removeNode.right;
+                removeNode.right.parent = removeNode.parent;
+            } else { // 左右都有节点，将右边节点的最左边的节点找到，改变其指向 --- 找到要删除节点的右子节点的最小子节点
+                Node moveNode = removeNode.right;
+                if (moveNode.left == null) { // 右子节点没有更小的子节点，右子节点为要移动的节点
+                    moveNode.parent = removeNode.parent;
+                    moveNode.left = removeNode.left;
+                    removeNode.parent.left = moveNode;
+                    removeNode.left.parent = moveNode;
+                } else {
+                    while (moveNode.left != null) {
+                        moveNode = moveNode.left; // 一直向左找到最左边的节点
+                    }
+                    moveNode.parent.left = null;
+                    moveNode.parent = removeNode.parent;
+                    moveNode.left = removeNode.left; // 为移动的节点建立新的连接
+                    moveNode.right = removeNode.right;
+                    removeNode.parent.left = moveNode; // 为删除节点的父节点建立新的连接
+                    removeNode.left.parent = moveNode; // 为删除节点的子节点建立新的连接
+                }
+            }
+            this.count--;
+        } else if (removeNode != null && removeNode.parent.right == removeNode) { // 非空 非根 右节点
+            if (removeNode.left == null && removeNode.right == null) { // 没有任何子节点 为叶子节点
+                removeNode.parent.right = null; // 更新父节点的引用
+            } else if (removeNode.left != null && removeNode.right == null) { // 只有左节点
+                removeNode.parent.right = removeNode.left; // 更新父节点和左子节点的引用
+                removeNode.left.parent = removeNode.parent;
+            } else if (removeNode.left == null && removeNode.right != null) { // 只有右节点
+                removeNode.parent.right = removeNode.right;
+                removeNode.right.parent = removeNode.parent;
+            } else { // 左右都有节点，将右边节点的最左边的节点找到，改变其指向 --- 找到要删除节点的右子节点的最小子节点
+                Node moveNode = removeNode.right;
+                if (moveNode.left == null) { // 右子节点没有更小的子节点，右子节点为要移动的节点
+                    moveNode.parent = removeNode.parent;
+                    moveNode.left = removeNode.left;
+                    removeNode.parent.right = moveNode;
+                    removeNode.left.parent = moveNode;
+                } else {
+                    while (moveNode.left != null) {
+                        moveNode = moveNode.left; // 一直向左找到最左边的节点
+                    }
+                    moveNode.parent.left = null; // 先断开连接
+                    moveNode.parent = removeNode.parent;
+                    moveNode.left = removeNode.left; // 为移动的节点建立新的连接
+                    moveNode.right = removeNode.right;
+                    removeNode.parent.right = moveNode; // 为删除节点的父节点建立新的连接
+                    removeNode.left.parent = moveNode; // 为删除节点的子节点建立新的连接
+                }
+            }
+            this.count--;
+        }
+    }
+
 }
+
 
 class Person implements Comparable<Person> {
     private String name;
