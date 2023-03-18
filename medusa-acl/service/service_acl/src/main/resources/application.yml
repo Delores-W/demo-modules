@@ -1,0 +1,32 @@
+server:
+  port: 8009
+
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/medusa
+    username: root
+    password: root
+    driver-class-name: com.mysql.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    filters: stat,wall
+
+  redis:
+    host: localhost
+    port: 6379
+
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+
+  application:
+    name: service-acl
+
+
+mybatis-plus:
+  # 指定mapper.xml 的位置，如果没有自定义sql 或者@Select写sql 可以不指定mapper.xml
+  mapper-locations: classpath:com/delores/acl_service/mapper/xml/*.xml
+  type-aliases-package: com.delores.acl_service.entity
+  configuration:
+    map-underscore-to-camel-case: true

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop
+        https://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:annotation-config/>
+    <context:component-scan base-package="com.delores"/>
+    <aop:aspectj-autoproxy/>
+
+    <bean id="log" class="com.delores.aop.service.Log"/>
+    <bean id="afterResult" class="com.delores.aop.service.AfterResult"/>
+
+
+    <!--    <aop:config>-->
+    <!--        &lt;!&ndash; 注解？ 修饰符? 返回值类型 类型声明? 方法名(参数列表) 异常列表？ &ndash;&gt;-->
+    <!--        <aop:pointcut id="pointcut" expression="execution(* com.delores.aop.service.UserServiceImpl.*(..))"/>-->
+
+    <!--        <aop:advisor advice-ref="log" pointcut-ref="pointcut"/>-->
+    <!--        <aop:advisor advice-ref="afterResult" pointcut-ref="pointcut"/>-->
+    <!--    </aop:config>-->
+
+
+    <!--    <aop:config>-->
+    <!--        <aop:aspect ref="customAspect">-->
+    <!--            <aop:pointcut id="point" expression="execution(* com.delores.aop.service.UserServiceImpl.*(..))"/>-->
+
+    <!--            <aop:before method="beforeLog" pointcut-ref="point"/>-->
+    <!--            <aop:after method="afterLog" pointcut-ref="point"/>-->
+    <!--        </aop:aspect>-->
+    <!--    </aop:config>-->
+</beans>

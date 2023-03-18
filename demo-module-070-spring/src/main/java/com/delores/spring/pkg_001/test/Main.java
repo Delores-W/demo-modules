@@ -15,5 +15,6 @@ public class Main {
         OneInterface oneInterface = new OneInterfaceImpl();
         String result = oneInterface.hello("This is my Delores");
         System.out.println(result);
+        String name = new String("delores");
     }
 }

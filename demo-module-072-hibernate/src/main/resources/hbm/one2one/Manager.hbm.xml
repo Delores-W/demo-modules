@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.delores.entity.one2one">
+    <class name="Manager" table="manager">
+        <meta attribute="class-description">
+            This class contains the order detail.
+        </meta>
+        <id name="id" type="java.lang.Long" column="id">
+            <generator class="native"/>
+        </id>
+        <property name="name" column="name" type="java.lang.String"/>
+
+        <!--    property-ref="manager" 必须加上，否则查询条件会出问题   -->
+        <one-to-one name="department" class="Department" property-ref="manager"/>
+    </class>
+</hibernate-mapping>

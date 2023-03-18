@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.delores.medusa.dao.mapper.AuthTokenMapper">
+
+<!--    <resultMap id="authToken" type="com.delores.medusa.model.AuthToken ">-->
+<!--        <id property="id" column="id"/>-->
+<!--        <result property="userId" column="user_id"/>-->
+<!--        <result property="accessToken"-->
+<!--    </resultMap>-->
+
+    <insert id="save">
+        INSERT INTO medusa.auth_token (user_id, access_token, access_expire, token_timestamp, is_active, create_time,
+                                       update_time)
+        VALUES (#{userId}, #{accessToken}, #{accessExpire}, #{tokenTimestamp}, #{isActive}, #{createTime},
+                #{updateTime})
+    </insert>
+
+    <select id="selectByAccessToken" resultType="authToken">
+        SELECT * FROM medusa.auth_token where access_token = #{accessToken}
+    </select>
+
+    <update id="invalidateByToken">
+        UPDATE medusa.auth_token SET is_active = 0 WHERE access_token = #{accessToken}
+    </update>
+
+    <update id="invalidateTokenByUser">
+        UPDATE medusa.auth_token SET is_active = 0 WHERE user_id = #{id}
+    </update>
+
+    <delete id="deleteInactiveToken">
+        DELETE FROM medusa.auth_token WHERE is_active = 0;
+    </delete>
+
+</mapper>

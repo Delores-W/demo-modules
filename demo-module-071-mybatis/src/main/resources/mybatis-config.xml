@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <properties resource="dbconfig.properties"/>
+    
+    <settings>
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+        <setting name="lazyLoadingEnabled" value="true"/>
+        <setting name="aggressiveLazyLoading" value="false"/>
+        <setting name="cacheEnabled" value="true"/>
+    </settings>
+
+    <typeAliases>
+        <!--   别名默认为类名小写  也可以指定别名   -->
+<!--        <typeAlias type="com.delores.pojo.Employee"/>-->
+        
+        <package name="com.delores.pojo"/>
+    </typeAliases>
+
+    <plugins>
+<!--        <plugin interceptor="com.delores.plugin.MyFirstPlugin"/>-->
+        <plugin interceptor="com.github.pagehelper.PageInterceptor"/>
+    </plugins>
+
+<!--  default 设置默认的环境  -->
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${mysql.driver}"/>
+                <property name="url" value="${mysql.url}"/>
+                <property name="username" value="${mysql.username}"/>
+                <property name="password" value="${mysql.password}"/>
+            </dataSource>
+        </environment>
+        
+        <environment id="prod">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${postgres.driver}"/>
+                <property name="url" value="${postgres.url}"/>
+                <property name="username" value="${postgres.username}"/>
+                <property name="password" value="${postgres.password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+    
+    <databaseIdProvider type="DB_VENDOR">
+        <property name="MySQL" value="mysql"/>
+        <property name="ORACLE" value="oracle"/>
+        <property name="DB2" value="d2"/>
+        <property name="PostgreSQL" value="postgres"/>
+    </databaseIdProvider>
+
+    <mappers>
+<!--        <mapper resource="com/delores/mapper/EmployeeMapper.xml"/>-->
+
+<!--    没有sql映射文件 sql可以直接通过注解写在接口上@Select  测试发现，不注册class，@Select 也可以生效  -->
+<!--        简单的sql，不需要后期优化的sql, 可以通过注册类，在接口方法上通过注解写sql-->
+<!--        <mapper class="com.delores.mapper.EmployeeMapper"/>-->
+
+        <package name="com.delores.mapper"/>
+    </mappers>
+</configuration>

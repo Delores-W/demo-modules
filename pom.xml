@@ -12,6 +12,20 @@
         <module>demo-module-070-spring</module>
         <module>demo-module-060-logs</module>
         <module>demo-module-001-base</module>
+        <module>demo-module-070-spring-ioc</module>
+        <module>demo-module-070-spring-ioc2</module>
+        <module>demo-module-070-spring-aop</module>
+        <module>demo-module-071-mybatis</module>
+        <module>demo-module-077-ssm</module>
+        <module>demo-module-090-webapp</module>
+        <module>demo-module-072-hibernate</module>
+        <module>demo-module-073-springMVC</module>
+        <module>demo-module-093-transaction</module>
+        <module>demo-module-090-webapp-2.0</module>
+        <module>demo-module-090-webapp-spring</module>
+        <module>nacos-demo</module>
+        <module>demo-module-089-webapp</module>
+        <module>demo-module-webSocket</module>
     </modules>
 
 

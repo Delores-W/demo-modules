@@ -1,5 +1,6 @@
 package com.delores.spring.pkg_002.service;
 
+import com.delores.spring.pkg_001.interfaces.BaseTest;
 import com.delores.spring.pkg_001.interfaces.OneInterface;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,19 +14,22 @@ import static org.junit.Assert.*;
  * @date 2020/1/7 4:55 PM
  * @description
  */
-public class InjectionTest {
+public class InjectionTest extends BaseTest {
+
+    public InjectionTest() {
+//        super("WEB-INF/spring-DI.xml");
+        super("WEB-INF/spring-DI-Autowiring.xml");
+    }
 
     @Test
     public void injectionTest() {
-        ApplicationContext context = new ClassPathXmlApplicationContext(new String[]{"WEB-INF/spring-DI.xml"});
-        InjectionService injectionService = (InjectionService) context.getBean("injectionService");
+        InjectionService injectionService = getBean(InjectionService.class);
         injectionService.save("Delores");
     }
 
     @Test
     public void injectionAutowiringTest() {
-        ApplicationContext context = new ClassPathXmlApplicationContext(new String[]{"WEB-INF/spring-DI-Autowiring.xml"});
-        InjectionService injectionService = (InjectionService) context.getBean("injectionService");
+        InjectionService injectionService = getBean(InjectionService.class);
         injectionService.save("Delores");
     }
 

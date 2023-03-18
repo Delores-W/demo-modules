@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!--  通过类型赋值  -->
+    <bean id="hello" class="com.delores.ioc.Hello" name="hello3, hello4, hello5">
+        <constructor-arg index="0" value="delores"/>
+    </bean>
+
+
+    <bean name="cat" class="com.delores.ioc.autowire.Cat"/>
+    <bean name="dog" class="com.delores.ioc.autowire.Dog"/>
+
+    <bean id="people" class="com.delores.ioc.autowire.People" autowire="byType">
+        <property name="name" value="delores"/>
+<!--        <property name="dog" ref="dog"/>-->
+    </bean>
+
+
+
+
+
+
+
+    <!--  别名  -->
+    <alias name="hello" alias="hello2"/>
+
+    <bean id="address" class="com.delores.ioc.Address"/>
+
+    <bean id="student" class="com.delores.ioc.Student">
+        <!--    普通值注入    -->
+        <property name="name" value="Delores"/>
+
+        <!--    bean注入    -->
+        <property name="address" ref="address"/>
+
+        <!--    array注入    -->
+        <property name="girls">
+            <array>
+                <value>A</value>
+                <value>B</value>
+                <value>C</value>
+            </array>
+        </property>
+
+        <property name="books">
+            <list>
+                <value>红楼梦</value>
+                <value>红楼梦</value>
+                <value>红楼梦</value>
+            </list>
+        </property>
+
+        <property name="games">
+            <set>
+                <value>LOL</value>
+                <value>PUBG</value>
+            </set>
+        </property>
+
+        <property name="cards">
+            <map>
+                <entry key="id" value="23412341234"/>
+                <entry key="student_id" value="fasdfasdfsdf"/>
+            </map>
+        </property>
+
+        <property name="wife">
+            <null/>
+        </property>
+
+        <property name="info">
+            <props>
+                <prop key="111">小浣熊</prop>
+                <prop key="sql">select</prop>
+            </props>
+        </property>
+    </bean>
+</beans>

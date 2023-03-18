@@ -17,6 +17,11 @@ import java.util.stream.Stream;
  */
 public class Demo {
 
+    private static int age;
+    static String name;
+    protected static String job;
+    public static String comment;
+
     public static void main(String[] args) {
 
 
@@ -114,7 +119,7 @@ public class Demo {
         }).collect(Collectors.toList());
         System.out.println("----------------------------------------------");
 
-        list3.forEach(System.out :: println);
+        list2.forEach(System.out :: println);
 
         System.out.println("----------------------------------------------");
         List<String> first= Arrays.asList("one", "two", "three");

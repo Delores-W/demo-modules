@@ -1,0 +1,17 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /medusa
+
+person:
+  name: Delores
+  age: 80
+  list:
+    - haha
+    - wow
+    - ${random.int(10)}
+
+dog:
+  name: Jimmy
+  age: 3
+

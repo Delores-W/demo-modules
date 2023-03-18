@@ -1,6 +1,7 @@
 package com.delores.spring.pkg_005;
 
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.request.RequestContextHolder;
 
 /**
  * @author William
@@ -15,6 +16,8 @@ public class Chinese_2 {
     public String sayHello(String name) {
         System.out.println("-- sayHello() --");
         return name + " hello, AOP";
+
+//        RequestContextHolder
     }
 
     public void eat(String food) {

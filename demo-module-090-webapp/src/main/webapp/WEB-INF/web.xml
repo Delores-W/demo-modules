@@ -1,0 +1,84 @@
+<web-app version="2.5"
+         xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+	http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+
+  <display-name>delores-web</display-name>
+
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+
+  <!-- needed for ContextLoaderListener -->
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>classpath:applicationContext.xml</param-value>
+  </context-param>
+
+  <!-- Bootstraps the root web application context before servlet initialization -->
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+
+  <!-- 为Tomcat配置Servlet程序 -->
+  <servlet>
+    <servlet-name>HelloServlet</servlet-name>
+    <servlet-class>com.delores.servlet.HelloServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>HelloServlet</servlet-name>
+    <url-pattern>/hello</url-pattern>
+  </servlet-mapping>
+
+  <filter>
+    <filter-name>AdminFilter</filter-name>
+    <filter-class>com.delores.Filter.AdminFilter</filter-class>
+  </filter>
+
+  <filter-mapping>
+    <filter-name>AdminFilter</filter-name>
+    <url-pattern>/admin/*</url-pattern>
+<!--    也可以拦截Servlet-->
+<!--    <servlet-name>HelloServlet</servlet-name>-->
+  </filter-mapping>
+
+  <servlet>
+    <servlet-name>Servlet01</servlet-name>
+    <servlet-class>com.delores.servlet.Servlet01</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>Servlet01</servlet-name>
+    <url-pattern>/01</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>Servlet02</servlet-name>
+    <servlet-class>com.delores.servlet.Servlet02</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>Servlet02</servlet-name>
+    <url-pattern>/02</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>KaptchaServlet</servlet-name>
+    <servlet-class>com.google.code.kaptcha.servlet.KaptchaServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>KaptchaServlet</servlet-name>
+    <url-pattern>/kaptcha.jpg</url-pattern>
+  </servlet-mapping>
+  
+  <listener>
+    <listener-class>com.delores.listener.ServletContextListenerImpl</listener-class>
+  </listener>
+
+
+
+</web-app>
+

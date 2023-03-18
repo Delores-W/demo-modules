@@ -1,0 +1,30 @@
+server:
+  port: 8000
+
+spring:
+  application:
+    name: service-gateway
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+#        别这么写，404 找不到 ，打死找不到！！！！！！！！
+#        server-addr: localhost
+#        port: 8848
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+
+      routes:
+        - id: service-acl
+          uri: lb://service-acl
+          predicates:
+            - Path=/*/acl/**
+        - id: service-order
+          uri: lb://service-order
+#          uri: http://localhost:8008
+          predicates:
+            - Path=/orderService/**
+

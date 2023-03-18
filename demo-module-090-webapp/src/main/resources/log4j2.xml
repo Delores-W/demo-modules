@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<configuration status="WARN" monitorInterval="30">
+
+    <Properties>
+        <Property name="log.pattern">
+            %d{yyyy-MM-dd HH:mm:ss.SSS} %5p ${hostName} --- [%15.15t] %-40.40c{1.} : %m%n%ex
+        </Property>
+        <Property name="project.name">
+            demo-module-090-webapp
+        </Property>
+        <Property name="log.path">
+            /Users/delores/Hubs/Art/A_Projects/logs/demo-module-090-webapp
+        </Property>
+    </Properties>
+
+    <Appenders>
+        <!-- Console Appender -->
+        <Console name="ConsoleAppender" target="SYSTEM_OUT">
+            <PatternLayout pattern="${log.pattern}"/>
+        </Console>
+
+        <!-- Rolling File Appender -->
+        <!-- 启动日志 -->
+        <RollingFile name="RollingFileAppender"
+                     fileName="${log.path}/${project.name}.log"
+                     filePattern="${log.path}/historyRunLog/${date:yyyy-MM}/${project.name}-%d{yyyy-MM-dd}-%i.log.gz">
+            <PatternLayout>
+                <Pattern>${log.pattern}</Pattern>
+            </PatternLayout>
+            <Policies>
+                <!-- 日志压缩触发条件 -->
+                <!-- 每次日志超过size配置的大小，按filePattern的配置的格式进行压缩 -->
+                <SizeBasedTriggeringPolicy size="10MB"/>
+                <!-- 此处是按时间进行压缩 根据filePattern中的时间格式   每隔一个单位进行压缩-->
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+            </Policies>
+        </RollingFile>
+
+        <!-- 业务日志 -->
+        <RollingFile name="BusinessRollingFileAppender"
+                     fileName="${log.path}/business/${project.name}_business.log"
+                     filePattern="${log.path}/businessLog/${date:yyyy-MM}/${project.name}-%d{yyyy-MM-dd}-%i.log.gz">
+            <PatternLayout>
+                <Pattern>${log.pattern}</Pattern>
+            </PatternLayout>
+            <Policies>
+                <!-- 日志压缩触发条件 -->
+                <!-- 每次日志超过size配置的大小，按filePattern的配置的格式进行压缩 -->
+                <SizeBasedTriggeringPolicy size="10MB"/>
+                <!-- 此处是按时间进行压缩 根据filePattern中的时间格式   每隔一个单位进行压缩-->
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+            </Policies>
+        </RollingFile>
+    </Appenders>
+
+    <Loggers>
+        <Logger name="business" level="info" additivity="false">
+            <AppenderRef ref="ConsoleAppender"/>
+            <AppenderRef ref="RollingFileAppender"/>
+            <AppenderRef ref="BusinessRollingFileAppender"/>
+        </Logger>
+
+        <Root level="debug">
+            <AppenderRef ref="ConsoleAppender"/>
+            <AppenderRef ref="RollingFileAppender"/>
+        </Root>
+    </Loggers>
+</configuration>

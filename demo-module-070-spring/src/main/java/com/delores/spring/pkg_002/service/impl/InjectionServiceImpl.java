@@ -19,9 +19,9 @@ public class InjectionServiceImpl implements InjectionService {
 
 
 //    // 构造器注入
-//    public InjectionServiceImpl(InjectionDao injectionDao) {
-//        this.injectionDao = injectionDao;
-//    }
+    public InjectionServiceImpl(InjectionDao injectionDao) {
+        this.injectionDao = injectionDao;
+    }
 
     @Override
     public void save(String args) {
@@ -31,5 +31,9 @@ public class InjectionServiceImpl implements InjectionService {
         args = args + ": " + this.hashCode();
 
         injectionDao.save(args);
+    }
+
+    public void init() {
+
     }
 }

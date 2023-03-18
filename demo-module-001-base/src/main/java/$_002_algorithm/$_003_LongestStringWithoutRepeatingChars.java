@@ -28,7 +28,7 @@ public class $_003_LongestStringWithoutRepeatingChars {
         for (int i = 0; i < s.length(); i++) {
             // 左指针 i 向右推移
             if (i != 0) {
-                chars.remove(s.charAt(i));
+                chars.remove(s.charAt(i - 1));
             }
 
             // 不重复的话 添加进集合

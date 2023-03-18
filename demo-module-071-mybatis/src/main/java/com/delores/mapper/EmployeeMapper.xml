@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.delores.mapper.EmployeeMapper">
+<!--    namespace 为接口的全类名-->
+    
+    <select id="findOne" parameterType="emp" resultMap="myEmp3">
+        select * from delores.employee
+        <where>
+            <if test="#{id} != null">
+                id = #{id}
+            </if>
+            <if test="#{lastName}!=null and #{lastName}!=''">
+                and last_name = #{lastName}
+            </if>
+        </where>
+    </select>
+    
+    <resultMap id="myEmp" type="com.delores.pojo.Employee">
+        <id column="id" property="id"/>
+        <result column="last_name" property="lastName"/>
+        <result column="gender" property="gender"/>
+        <result column="email" property="email"/>
+        <!--        private Department dept;        -->
+        <result column="dep_id" property="dept.id"/>
+        <result column="dep_name" property="dept.name"/>
+    </resultMap>
+
+    <resultMap id="myEmp2" type="com.delores.pojo.Employee">
+        <id column="id" property="id"/>
+        <result column="last_name" property="lastName"/>
+        <result column="gender" property="gender"/>
+        <result column="email" property="email"/>
+        <association property="dept" javaType="department">
+            <id column="dep_id" property="id"/>
+            <id column="dep_name" property="name"/>
+        </association>
+    </resultMap>
+
+    <resultMap id="myEmp3" type="com.delores.pojo.Employee">
+        <id column="id" property="id"/>
+        <result column="last_name" property="lastName"/>
+        <result column="gender" property="gender"/>
+        <result column="email" property="email"/>
+        <association property="dept" select="com.delores.mapper.DepartmentMapper.getDepartment" column="dep_id"/>
+    </resultMap>
+
+    <select id="getEmployeeWithDept" resultMap="myEmp2">
+        select * from delores.employee e,delores.department dep where e.dep_id = dep.id;
+    </select>
+
+    <select id="getEmployeeByName" resultMap="myEmp3">
+        select * from delores.employee where id = #{id} and last_name = #{lastName}
+    </select>
+
+    <select id="getEmployees" resultMap="myEmp3">
+        select * from delores.employee
+    </select>
+
+    <select id="getEmployeesByDept" resultType="emp">
+        select * from delores.employee where dep_id = #{param1}
+    </select>
+
+    <select id="getEmail" resultType="string" databaseId="mysql">
+        select email from delores.employee where id = #{id}
+    </select>
+
+    <select id="getEmail" resultType="string" databaseId="postgres">
+        select email from delores_schema.employee where id = #{id}
+    </select>
+
+    <insert id="addOne" useGeneratedKeys="true" keyProperty="id" databaseId="mysql">
+        insert into delores.employee(last_name, email, gender)
+        values (#{lastName}, #{email}, #{gender})
+    </insert>
+
+    <insert id="addOne" parameterType="com.delores.pojo.Employee" useGeneratedKeys="true" keyProperty="id" databaseId="postgres">
+        <selectKey keyProperty="id" order="BEFORE" resultType="long">
+            select nextval('delores_schema.employee_sequence')
+        </selectKey>
+
+        insert into delores_schema.employee(id, last_name, email, gender)
+        values (#{id}, #{lastName}, #{email}, #{gender})
+    </insert>
+
+    <update id="updateOne" databaseId="mysql">
+        update delores.employee set last_name = #{lastName} where id = #{id}
+    </update>
+
+    <update id="updateOne" databaseId="postgres">
+        update delores_schema.employee set last_name = #{lastName} where id = #{id}
+    </update>
+
+</mapper>

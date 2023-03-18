@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.delores.entity.n2n">
+    <class name="Item" table="item">
+        <meta attribute="class-description">
+            This class contains the worker detail.
+        </meta>
+        <id name="id" type="integer" column="id">
+            <generator class="native"/>
+        </id>
+        <property name="itemName" column="item_name" type="string"/>
+
+        <set name="categories" table="category_item">
+            <key>
+                <column name="i_id"/>
+            </key>
+            <many-to-many column="c_id" class="Category"/>
+        </set>
+    </class>
+</hibernate-mapping>

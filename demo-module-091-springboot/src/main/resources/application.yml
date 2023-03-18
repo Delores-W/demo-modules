@@ -1,0 +1,78 @@
+server:
+  port: 8080
+#  servlet:
+#    context-path: /medusa
+
+spring:
+    profiles:
+      active: dev
+
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/medusa?characterEncoding=utf8&useSSL=false
+    username: root
+    password: root
+    driver-class-name: com.mysql.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    filters: stat,wall
+
+  jpa:
+    database: mysql
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+
+
+  redis:
+    host: localhost
+    port: 6379
+
+  thymeleaf:
+#    prefix: "classpath:/static/"
+    suffix: ".html"
+    cache: false
+
+  security:
+    user:
+      name: delores
+      password: delores
+
+  web:
+    resources:
+      static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/,classpath:/templates/,classpath:/webui/
+
+#  output:
+#    ansi:
+#      enabled: always
+
+# mybatis 同理
+mybatis-plus:
+  # 指定mapper.xml 的位置，如果没有自定义sql 或者@Select写sql 可以不指定mapper.xml
+  mapper-locations: classpath:mybatis/mappers/*Mapper.xml
+  type-aliases-package: com.delores.medusa.model
+  configuration:
+    map-underscore-to-camel-case: true
+
+cors:
+  allowedOrigins: "*"
+  allowedMethods: GET,POST,DELETE,PUT,OPTIONS
+  allowedHeaders: Origin,X-Requested-With,Content-Type,Accept,Accept-Encoding,Accept-Language,Host,Referer,Connection,User-Agent,accessToken
+
+jwt:
+  header: Authorization
+  #  header: accessToken
+  secret: welcometodelores
+  expiration: 7200
+  issuer: Delores
+  authenticationPath: /auth
+
+person:
+  name: William
+  age: 27
+  list:
+    - haha
+    - wow
+    - ${random.int(10)}
+
+
+

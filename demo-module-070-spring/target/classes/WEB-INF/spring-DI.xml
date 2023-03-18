@@ -7,10 +7,10 @@
                            http://www.springframework.org/schema/context
                            http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <bean id="injectionService" scope="prototype" class="com.delores.spring.pkg_002.service.impl.InjectionServiceImpl">
+    <bean id="injectionService" scope="prototype" class="com.delores.spring.pkg_002.service.impl.InjectionServiceImpl" init-method="init" destroy-method="init">
 
 <!--        set方法注入-->
-<!--        <property name="injectionDao" ref="injectionDao"/>-->
+        <property name="injectionDao" ref="injectionDao"/>
 
 <!--        构造方法注入-->
         <constructor-arg name="injectionDao" ref="injectionDao"/>

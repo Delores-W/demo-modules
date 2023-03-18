@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.delores.medusa.dao.mapper.UserMapper">
+    
+    <resultMap id="userMap" type="com.delores.medusa.model.User">
+        <id column="id" property="id"/>
+        <result column="state" property="state" typeHandler="org.apache.ibatis.type.EnumOrdinalTypeHandler"/>
+        <result column="name" property="name"/>
+        <result column="mobile" property="mobile"/>
+        <result column="password" property="password"/>
+        <result column="created" property="created" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <select id="getOneUser" resultMap="userMap">
+        select * from medusa.user where id = #{param1}
+    </select>
+
+    <select id="getUsers" resultMap="userMap">
+        select * from medusa.user where name = #{user.name}
+    </select>
+
+    <select id="findUserByUsername" resultMap="userMap">
+        select * from medusa.user where name = #{username}
+    </select>
+
+    <insert id="save" parameterType="user">
+        INSERT INTO medusa.user(state, name, mobile, password, created)
+        VALUES (#{state, typeHandler=org.apache.ibatis.type.EnumOrdinalTypeHandler}, #{name}, #{mobile}, #{password}, #{created})
+    </insert>
+
+</mapper>
