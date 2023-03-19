@@ -26,6 +26,7 @@
         <module>nacos-demo</module>
         <module>demo-module-089-webapp</module>
         <module>demo-module-webSocket</module>
+
     </modules>
 
 
